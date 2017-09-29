@@ -21,20 +21,6 @@ class MultiStrategyDispatch(object):
         self._single_dispatch = singledispatch(_DispatchNotFound)
         self._cache = {}
 
-    @staticmethod
-    def _clear_registry(singledispatch_instance):
-        """
-        a hack to clear the singledispatch registry.
-
-        this ensures that singledispatch does not resolve for
-        types that are not explicitly registered to it.
-        """
-        register_closure = singledispatch_instance.register.__closure__
-        for cell in register_closure:
-            if isinstance(cell.cell_contents, dict):
-                if object in cell.cell_contents:
-                    del cell.cell_contents[object]
-
     def dispatch(self, cl):
         if cl not in self._cache:
             found = False

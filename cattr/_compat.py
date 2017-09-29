@@ -7,9 +7,6 @@ use_vendored_typing = (
 is_py2 = version_info[0] == 2
 is_py3 = version_info[0] == 3
 
-from typing import *  # noqa
-from typing import _Union  # noqa
-
 if is_py2:
     from functools32 import lru_cache
     from singledispatch import singledispatch

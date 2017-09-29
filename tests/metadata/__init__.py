@@ -8,7 +8,8 @@ from hypothesis.strategies import (booleans, composite, dictionaries,
                                    text, tuples)
 
 from cattr import typed
-from cattr._compat import Any, Dict, List, unicode
+from cattr._compat import unicode
+from typing import Any, Dict, List
 
 from .. import gen_attr_names, make_class
 
