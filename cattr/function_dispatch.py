@@ -14,6 +14,7 @@ class FunctionDispatch(object):
 
     def register(self, can_handle, func):
         self._handler_pairs.insert(0, (can_handle, func))
+        self._cache.clear()
 
     def dispatch(self, typ):
         """

@@ -2,6 +2,11 @@ from .function_dispatch import FunctionDispatch
 from ._compat import singledispatch
 
 
+class _DispatchNotFound(object):
+    """ a dummy object to help signify a dispatch not found """
+    pass
+
+
 class MultiStrategyDispatch(object):
     """
     MultiStrategyDispatch uses a
@@ -11,10 +16,9 @@ class MultiStrategyDispatch(object):
     """
 
     def __init__(self, fallback_func):
-        self._dispatch_not_found = object()
         self._function_dispatch = FunctionDispatch()
         self._function_dispatch.register(lambda cls: True, fallback_func)
-        self._single_dispatch = singledispatch(self._dispatch_not_found)
+        self._single_dispatch = singledispatch(_DispatchNotFound)
         self._cache = {}
 
     @staticmethod
@@ -36,7 +40,7 @@ class MultiStrategyDispatch(object):
             found = False
             try:
                 dispatch = self._single_dispatch.dispatch(cl)
-                if dispatch is not self._dispatch_not_found:
+                if dispatch is not _DispatchNotFound:
                     found = True
             except Exception as e:
                 pass
